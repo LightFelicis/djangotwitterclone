@@ -15,7 +15,7 @@ export default function Dashboard(props) {
     }
     const posts = props.posts.map(element => {
         return(
-            <SinglePost post={element}/>
+            <SinglePost post={element} key={element.id}/>
         )});
 
     return (
