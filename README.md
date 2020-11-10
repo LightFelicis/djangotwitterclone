@@ -17,6 +17,7 @@ polecenie
 
 ```
 npm install
+npm run build
 ```
 
 Aby uruchomić serwer, proszę wywołać polecenie
