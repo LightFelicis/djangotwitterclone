@@ -73,7 +73,7 @@ export default function LoginPage() {
                         fullWidth
                         name="haslo"
                         label="Hasło"
-                        type="haslo"
+                        type="password"
                         id="haslo"
                         autoComplete="current-password"
                         onChange={(newData) => {
