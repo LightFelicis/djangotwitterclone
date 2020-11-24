@@ -26,10 +26,8 @@ class CreateUserAPIView(CreateAPIView):
             headers=headers
         )
 
-
 class LogoutUserAPIView(APIView):
     queryset = get_user_model().objects.all()
-
     def get(self, request, format=None):
         # simply delete the token to force a login
         request.user.auth_token.delete()

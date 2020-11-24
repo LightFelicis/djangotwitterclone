@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -7,9 +7,7 @@ import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import {faPaperPlane} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeart} from "@fortawesome/free-solid-svg-icons/faHeart";
 import {AuthContext} from "../AuthContext";
@@ -63,11 +61,11 @@ export default function SinglePost(props) {
 
     const like = () => {
         if (chosenColor == '#1d3557') {
-            setLikes(likes+1);
+            setLikes(likes + 1);
             setChosenColor('#f65174');
             addLike();
         } else {
-            setLikes(likes-1);
+            setLikes(likes - 1);
             setChosenColor('#1d3557');
             removeLike();
         }
@@ -83,7 +81,7 @@ export default function SinglePost(props) {
                 }
                 action={
                     <IconButton aria-label="settings">
-                        <MoreVertIcon />
+                        <MoreVertIcon/>
                     </IconButton>
                 }
                 title={props.post.username}

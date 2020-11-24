@@ -8,7 +8,6 @@ const Cookies = require('cookies-js');
 function App() {
     const tokenFromCookie = Cookies.get('token');
 
-    console.log(tokenFromCookie);
     const [posts, setPosts] = useState([]);
     const [loggedIn, setLoggedIn] = useState(tokenFromCookie != null);
     const [sessionToken, setSessionToken] = useState(tokenFromCookie);
@@ -22,7 +21,7 @@ function App() {
         })
             .then(response => {
                 if (response.status > 400) {
-                    return "[]";
+                    return [];
                 }
                 return response.json();
             })
@@ -42,34 +41,63 @@ function App() {
         })
             .then(response => {
                 if (response.status >= 400) {
-                    return "{}";
+                    return {data: null};
                 }
                 return response.json();
             })
             .then(data => {
-                if (data.token) {
-                    setSessionToken(data.token);
-                    setLoggedIn(true);
+                    if (data.token) {
+                        setSessionToken(data.token);
+                        setLoggedIn(true);
+                    }
                 }
-            }
-        )
+            )
+    }
+
+    const register = (username, password) => {
+        fetch("api/auth/register/", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({username: username, password: password})
+        })
+            .then(response => {
+                if (response.status >= 400) {
+                    return {data: null};
+                }
+                return response.json();
+            })
+            .then(data => {
+                    if (data.token) {
+                        setSessionToken(data.token).then(() => {
+                            setLoggedIn(true);
+                        })
+                    }
+                }
+            )
     }
 
     const logout = () => {
         setSessionToken(null);
         setLoggedIn(false);
+        Cookies.remove('token')
     }
 
 
     useEffect(() => {
+        Cookies.set('token', sessionToken, {expires: '10000'});
         updatePosts();
-        Cookies.set('token', sessionToken, { expires: '10000' });
     }, [sessionToken]);
 
+    useEffect(() => {
+        updatePosts();
+    }, [loggedIn]);
 
 
     return (
-        <AuthContext.Provider value={{isLoggedIn: loggedIn, login: login, logout: logout, token: sessionToken}}>
+        <AuthContext.Provider value={{isLoggedIn: loggedIn, login: login, logout: logout, token: sessionToken, register: register}}>
             <Dashboard posts={posts} newPostAdded={updatePosts}/>
         </AuthContext.Provider>
     );

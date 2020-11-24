@@ -1,18 +1,12 @@
 import React, {useContext, useState} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import TextField from "@material-ui/core/TextField";
-import Icon from "@material-ui/core/Icon";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faPaperPlane} from '@fortawesome/free-solid-svg-icons'
 import withStyles from "@material-ui/core/styles/withStyles";
 import {AuthContext} from "../AuthContext";
 
@@ -67,7 +61,12 @@ export default function AddPost(props) {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({creator_token: authContext.token, post_content: content, timestamp: Math.floor(Date.now()/1000)})})
+            body: JSON.stringify({
+                creator_token: authContext.token,
+                post_content: content,
+                timestamp: Math.floor(Date.now() / 1000)
+            })
+        })
             .then(response => {
                 if (response.status >= 400) {
                     return;
@@ -79,7 +78,9 @@ export default function AddPost(props) {
     return (
         <Card className={classes.root}>
             <CardContent>
-                <CssTextField id="outlined-basic" label="Ćwierknij coś!" variant="outlined" onChange={(newData)=>{setContent(newData.target.value)}} fullWidth/>
+                <CssTextField id="outlined-basic" label="Ćwierknij coś!" variant="outlined" onChange={(newData) => {
+                    setContent(newData.target.value)
+                }} fullWidth/>
             </CardContent>
             <CardActions disableSpacing>
                 <IconButton aria-label="add to favorites" onClick={sendPost}>

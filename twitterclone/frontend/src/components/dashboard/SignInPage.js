@@ -3,12 +3,11 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 import {AuthContext} from "../AuthContext";
-import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -30,15 +29,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function LoginPage() {
+export default function SignInPage() {
     const authContext = useContext(AuthContext);
 
     const [username, setUsername] = useState(null)
     const [password, setPassword] = useState(null)
     const classes = useStyles();
 
-    const loginAttempt = () => {
-        authContext.login(username, password);
+    const registerAttempt = () => {
+        authContext.register(username, password);
     }
 
     return (
@@ -49,7 +48,7 @@ export default function LoginPage() {
                     <LockOutlinedIcon/>
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Zaloguj się!
+                    Zarejestruj się!
                 </Typography>
                 <form className={classes.form} noValidate>
                     <TextField
@@ -57,10 +56,9 @@ export default function LoginPage() {
                         margin="normal"
                         required
                         fullWidth
-                        id="username"
-                        label="Username"
-                        name="username"
-                        autoComplete="username"
+                        id="login"
+                        label="Login"
+                        name="login"
                         autoFocus
                         onChange={(newData) => {
                             setUsername(newData.target.value)
@@ -73,9 +71,8 @@ export default function LoginPage() {
                         fullWidth
                         name="haslo"
                         label="Hasło"
-                        type="haslo"
+                        type="password"
                         id="haslo"
-                        autoComplete="current-password"
                         onChange={(newData) => {
                             setPassword(newData.target.value)
                         }}
@@ -85,9 +82,9 @@ export default function LoginPage() {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
-                        onClick={loginAttempt}
+                        onClick={registerAttempt}
                     >
-                        Zaloguj się
+                        Zarejestruj się!
                     </Button>
                 </form>
             </div>
